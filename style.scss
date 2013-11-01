@@ -1,0 +1,92 @@
+$large-desktop: 'min-width: 1200px';
+$desktop: 'max-width: 979px';
+$land-tablet: 'min-width: 768px';
+$port-tablet: 'max-width: 767px';
+$phone: 'max-width: 480px';
+
+$pink: #f92672;
+$blue: #66d9ef;
+html {
+	margin: 0px;
+	height: 100%;
+}
+body {
+	margin: 0px;
+	height: 100%;
+	background-color: lighten(black, 8%);
+	color: darken(white, 15%);
+}
+a img {
+	outline: none;
+	border: none;
+}
+input[type="text"] {
+	background-color: lighten(black, 95%);
+	color: black;
+}
+.btn {
+	background-color: lighten(black, 22%);
+	color: $blue;
+	outline: none !important;
+}
+.btn:hover {
+	background-color: lighten(black, 38%);
+	color: $blue;
+}
+.hero-unit {
+	padding: 35px;
+	background-color: lighten(black, 22%);
+	color: $pink;
+	border-radius: 0px 0px 5px 5px;
+}
+.index-body {
+	width: 400px;
+	margin: 100px auto;
+}
+.bubls-container {
+	margin-bottom: 50px;
+}
+.image-bubl {
+}
+
+// Responsive section display TESTING ONLY
+body:before {
+	content: 'Default';
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	padding: 8px 12px;
+	text-align: center;
+	background-color: rgba(black, 0.7);
+	color: white;
+	border-radius: 0px 0px 12px 0px;
+}
+/* Large desktop */
+@media ($large-desktop) {
+	body:before {
+		content: 'Large desktop';
+	}
+}
+ 
+/* Portrait tablet to landscape and desktop */
+@media ($desktop) and ($land-tablet) {
+	body:before {
+		content: 'Portrait tablet to landscape and desktop';
+	}
+
+}
+ 
+/* Landscape phone to portrait tablet */
+@media ($port-tablet)  {
+	body:before {
+		content: 'Landscape phone to portrait tablet';
+	}
+}
+ 
+/* Landscape phones and down */
+@media ($phone) {
+	body:before {
+		content: 'Landscape phones and down';
+	}
+
+}
