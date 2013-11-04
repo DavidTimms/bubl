@@ -6,6 +6,7 @@ $phone: 'max-width: 480px';
 
 $pink: #f92672;
 $blue: #66d9ef;
+
 html {
 	margin: 0px;
 	height: 100%;
@@ -15,10 +16,14 @@ body {
 	height: 100%;
 	background-color: lighten(black, 8%);
 	color: darken(white, 15%);
+	font-family: 'Lato', sans-serif;
 }
 a img {
 	outline: none;
 	border: none;
+}
+a:link, a:hover, a:active, a:visited {
+	color: $blue;
 }
 input[type="text"] {
 	background-color: lighten(black, 95%);
@@ -33,17 +38,34 @@ input[type="text"] {
 	background-color: lighten(black, 38%);
 	color: $blue;
 }
+h1, h2, h3 {
+	font-family: 'Lato', sans-serif;
+	font-weight: 300;
+}
+h1 {
+	font-size: 50px;
+	font-weight: 100;
+}
 .hero-unit {
 	padding: 35px;
 	background-color: lighten(black, 22%);
 	color: $pink;
 	border-radius: 0px 0px 5px 5px;
 }
+.topic_title {
+	border-left: 1px solid rgb(180, 180, 180);
+	margin-left: 5px;
+	padding-left: 15px;
+	color: $blue;
+}
+.user-box {
+	float: right;
+}
 .index-body {
 	width: 400px;
 	margin: 100px auto;
 }
-.bubls-container {
+.bubls-body {
 	margin-bottom: 50px;
 }
 .image-bubl {

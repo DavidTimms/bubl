@@ -6,11 +6,15 @@ body {
   margin: 0px;
   height: 100%;
   background-color: #141414;
-  color: #d9d9d9; }
+  color: #d9d9d9;
+  font-family: 'Lato', sans-serif; }
 
 a img {
   outline: none;
   border: none; }
+
+a:link, a:hover, a:active, a:visited {
+  color: #66d9ef; }
 
 input[type="text"] {
   background-color: #f2f2f2;
@@ -25,17 +29,34 @@ input[type="text"] {
   background-color: #616161;
   color: #66d9ef; }
 
+h1, h2, h3 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300; }
+
+h1 {
+  font-size: 50px;
+  font-weight: 100; }
+
 .hero-unit {
   padding: 35px;
   background-color: #383838;
   color: #f92672;
   border-radius: 0px 0px 5px 5px; }
 
+.topic_title {
+  border-left: 1px solid #b4b4b4;
+  margin-left: 5px;
+  padding-left: 15px;
+  color: #66d9ef; }
+
+.user-box {
+  float: right; }
+
 .index-body {
   width: 400px;
   margin: 100px auto; }
 
-.bubls-container {
+.bubls-body {
   margin-bottom: 50px; }
 
 body:before {

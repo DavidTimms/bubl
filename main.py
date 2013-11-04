@@ -15,15 +15,41 @@
 # limitations under the License.
 #
 import webapp2
+import jinja2
+import os
 import logging
+from google.appengine.api import users
+
+# Initialise jinja2 templating environment
+JINJA_ENVIRONMENT = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    extensions=['jinja2.ext.autoescape'],
+    autoescape=True)
 
 class TopicPageHandler(webapp2.RequestHandler):
-	def get(self, topic):
-		self.response.write('Topic Page')
-	def post(self, topic):
-		res = 'Topic page created: ' + self.request.get('topic_name')
+	def get(self, topic_url):
+		page_data = {
+			'topic_name': topic_url,
+			'topic_url': topic_url,
+			'images': ['Photo One', 'Image Two', 'Picture Three']
+		}
+
+		user = users.get_current_user()
+		if user:
+			page_data['username'] = user.nickname()
+
+		template = JINJA_ENVIRONMENT.get_template('page.html')
+		self.response.write(template.render(page_data))
+	def post(self, topic_url):
+		res = 'Topic page created: ' + self.request.POST['topic_name']
 		self.response.write(res)
 
+class LoginHandler(webapp2.RequestHandler):
+	def get(self):
+		return_url = self.request.host_url + '/' + self.request.GET['topic_url']
+		self.redirect(users.create_login_url(return_url))
+
 app = webapp2.WSGIApplication([
-	webapp2.Route('/<topic>', handler=TopicPageHandler, name='topic-page')
+	webapp2.Route('/login', handler=LoginHandler, name='login-redirect'),
+	webapp2.Route('/<topic_url>', handler=TopicPageHandler, name='topic-page')
 ], debug=True)
