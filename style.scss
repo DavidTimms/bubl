@@ -6,6 +6,9 @@ $phone: 'max-width: 480px';
 
 $pink: #f92672;
 $blue: #66d9ef;
+$mid-grey: lighten(black, 22%);
+$dark-grey: lighten(black, 8%);
+$light-grey: lighten(black, 38%);
 
 html {
 	margin: 0px;
@@ -14,7 +17,7 @@ html {
 body {
 	margin: 0px;
 	height: 100%;
-	background-color: lighten(black, 8%);
+	background-color: $dark-grey;
 	color: darken(white, 15%);
 	font-family: 'Lato', sans-serif;
 }
@@ -30,12 +33,12 @@ input[type="text"] {
 	color: black;
 }
 .btn {
-	background-color: lighten(black, 22%);
+	background-color: $mid-grey;
 	color: $blue;
 	outline: none !important;
 }
 .btn:hover {
-	background-color: lighten(black, 38%);
+	background-color: $light-grey;
 	color: $blue;
 }
 h1, h2, h3 {
@@ -47,10 +50,11 @@ h1 {
 	font-weight: 100;
 }
 .hero-unit {
-	padding: 35px;
-	background-color: lighten(black, 22%);
+	padding: 20px 35px;
+	background-color: $mid-grey;
 	color: $pink;
 	border-radius: 0px 0px 5px 5px;
+	height: 150px;
 }
 .topic_title {
 	border-left: 1px solid rgb(180, 180, 180);
@@ -68,7 +72,49 @@ h1 {
 .bubls-body {
 	margin-bottom: 50px;
 }
+.upload-form {
+	display: block;
+	width: 400px;
+	margin: 20px auto 30px;
+	padding: 15px;
+	background-color: $mid-grey;
+	border-radius: 5px;
+	text-align: center;
+	input {
+		margin-top: 5px;
+	}
+	.btn {
+		background-color: $dark-grey;
+		&:hover {
+			opacity: 0.8;
+		}
+	}
+}
+.column-1 {
+	display: inline-block;
+	width: 25%;
+	float: left;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	padding: 8px;
+}
+.column-1:nth-of-type(1) {
+	width: 50%;
+}
 .image-bubl {
+	margin-bottom: 20px;
+	background-color: black;
+	border-radius: 8px;
+	text-align: center;
+	color: $blue;
+	box-shadow: 3px 3px 10px rgba(black, 0.3);
+	img {
+		width: 100%;
+		border-radius: 7px 7px 0px 0px;
+	}
+	.caption {
+		padding: 5px 0px;
+	}
 }
 
 // Responsive section display TESTING ONLY

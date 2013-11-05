@@ -38,10 +38,11 @@ h1 {
   font-weight: 100; }
 
 .hero-unit {
-  padding: 35px;
+  padding: 20px 35px;
   background-color: #383838;
   color: #f92672;
-  border-radius: 0px 0px 5px 5px; }
+  border-radius: 0px 0px 5px 5px;
+  height: 150px; }
 
 .topic_title {
   border-left: 1px solid #b4b4b4;
@@ -58,6 +59,46 @@ h1 {
 
 .bubls-body {
   margin-bottom: 50px; }
+
+.upload-form {
+  display: block;
+  width: 400px;
+  margin: 20px auto 30px;
+  padding: 15px;
+  background-color: #383838;
+  border-radius: 5px;
+  text-align: center; }
+  .upload-form input {
+    margin-top: 5px; }
+  .upload-form .btn {
+    background-color: #141414; }
+    .upload-form .btn:hover {
+      opacity: 0.8; }
+
+.column-1 {
+  display: inline-block;
+  width: 25%;
+  float: left;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  /* Firefox */
+  padding: 8px; }
+
+.column-1:nth-of-type(1) {
+  width: 50%; }
+
+.image-bubl {
+  margin-bottom: 20px;
+  background-color: black;
+  border-radius: 8px;
+  text-align: center;
+  color: #66d9ef;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3); }
+  .image-bubl img {
+    width: 100%;
+    border-radius: 7px 7px 0px 0px; }
+  .image-bubl .caption {
+    padding: 5px 0px; }
 
 body:before {
   content: 'Default';

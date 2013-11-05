@@ -2,7 +2,7 @@
 {% autoescape true %}
 <html lang="en-GB">
 	<head>
-		<title>{{topic_name}} bubl | Smart Photo Sharing</title>
+		<title>{{topic_name}} | bubl | Smart Photo Sharing</title>
 		<meta name="viewport" content="width=400, user-scalable=no" />
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" />
 		<!--<link href="css/flat-ui.css" rel="stylesheet" />-->
@@ -16,8 +16,9 @@
 		<div class="container">
 			<div class="hero-unit">
 				<div class="user-box">
-					{% if username %}
-						Hello, {{username}}
+					{% if logged_in %}
+						Hello, {{user_name}} |
+						<a href="/logout?topic_url={{topic_url}}">Logout</a>
 					{% else %}
 						<a href="/login?topic_url={{topic_url}}">Login</a>
 					{% endif %}
@@ -28,11 +29,32 @@
 						{{topic_name}}
 					</span>
 				</h1>
+				<div class="creator_label">
+					Created by {{creator_name}}
+				</div>
 			</div>
 			<div class="bubls-body">
+				{% if logged_in %}
+					<form class="upload-form" method="POST" action="./{{topic_url}}/add_image">
+						<input type="text" class="form-control" name="image_url" placeholder="Image URL" />
+						<input type="text" class="form-control" name="image_caption" placeholder="Caption" />
+						<input type="submit"class="btn" value="Upload" />
+					</form>
+				{% endif %}
 				{% for image in images %}
-					<div class="image-bubl span3">
-						{{image}}
+					<div class="column-1">
+						<a href="{{image.url}}"><div class="image-bubl span3">
+							<img src="{{image.url}}" alt="{{image.caption}}" />
+							<div class="caption">
+								{{image.caption}}
+							</div>
+						</div></a>
+						<a href="{{image.url}}"><div class="image-bubl span3">
+							<img src="{{image.url}}" alt="{{image.caption}}" />
+							<div class="caption">
+								{{image.caption}}
+							</div>
+						</div></a>
 					</div>
 				{% endfor %}
 			</div>
