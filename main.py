@@ -20,12 +20,16 @@ class TopicHandler(webapp2.RequestHandler):
 		if topic == None:
 			self.response.write('Topic not found')
 		else:
-			page_data = topic.to_dict()
+			page_data = {
+				'topic': topic.to_dict(),
+				'images': topic.get_images()
+			}
 			user = users.get_current_user()
 			if user:
-				page_data['logged_in'] = True
-				page_data['user_name'] = user.nickname()
-				page_data['user_id'] = user.user_id()
+				page_data['user'] = {
+					'name': user.nickname(),
+					'id': user.user_id()
+				}
 			#self.response.write(str(page_data))
 			self.response.write(render('page.html', page_data))
 

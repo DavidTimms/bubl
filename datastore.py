@@ -8,14 +8,11 @@ class Topic(ndb.Model):
 	creator_name = ndb.StringProperty()
 
 	def to_dict(self):
-		images = map(lambda x: x.to_dict(), Image.topic_images(self.url))
-		return {
-			'topic_url': self.url,
-			'topic_name': self.name,
-			'creator_id': self.creator_id,
-			'creator_name': self.creator_name,
-			'images': images
-		}
+		props = ['url', 'name', 'creator_id', 'creator_name']
+		return dict(map(lambda x: (x, getattr(self, x)), props))
+
+	def get_images(self):
+		return map(lambda x: x.to_dict(), Image.topic_images(self.url))
 	@staticmethod
 	def ancestor():
 		return ndb.Key("TopicSet", "master")
@@ -41,15 +38,10 @@ class Image(ndb.Model):
 	upvoters = ndb.PickleProperty()
 	downvoters = ndb.PickleProperty()
 
-	#def old_to_dict(self):
-	#	props = ['url', 'caption', 'creator_id', 'creator_name', 'upvoters', 'downvoters']
-	#	def build_dict(data_dict, prop):
-	#		data_dict[prop] = getattr(self, prop)
-	#		return data_dict
-	#	return reduce(build_dict, props, dict())
 	def to_dict(self):
 		props = ['url', 'caption', 'creator_id', 'creator_name', 'upvoters', 'downvoters']
 		return dict(map(lambda x: (x, getattr(self, x)), props))
+
 	@classmethod
 	def create(cls, topic_url, image_url, image_caption, creator_id, creator_name):
 		image = Image(

@@ -2,7 +2,7 @@
 {% autoescape true %}
 <html lang="en-GB">
 	<head>
-		<title>{{topic_name}} | bubl | Smart Photo Sharing</title>
+		<title>{{topic.name}} | bubl | Smart Photo Sharing</title>
 		<meta name="viewport" content="width=400, user-scalable=no" />
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" />
 		<!--<link href="css/flat-ui.css" rel="stylesheet" />-->
@@ -16,26 +16,26 @@
 		<div class="container">
 			<div class="hero-unit">
 				<div class="user-box">
-					{% if logged_in %}
-						Hello, {{user_name}} |
-						<a href="/logout?topic_url={{topic_url}}">Logout</a>
+					{% if user %}
+						Hello, {{user.name}} |
+						<a href="/logout?topic_url={{topic.url}}">Logout</a>
 					{% else %}
-						<a href="/login?topic_url={{topic_url}}">Login</a>
+						<a href="/login?topic_url={{topic.url}}">Login</a>
 					{% endif %}
 				</div>
 				<h1>
 					bubl
 					<span class="topic_title">
-						{{topic_name}}
+						{{topic.name}}
 					</span>
 				</h1>
 				<div class="creator_label">
-					Created by {{creator_name}}
+					Created by {{topic.creator_name}}
 				</div>
 			</div>
 			<div class="bubls-body">
-				{% if logged_in %}
-					<form class="upload-form" method="POST" action="./{{topic_url}}/add_image">
+				{% if user %}
+					<form class="upload-form" method="POST" action="./{{topic.url}}/add_image">
 						<input type="text" class="form-control" name="image_url" placeholder="Image URL" />
 						<input type="text" class="form-control" name="image_caption" placeholder="Caption" />
 						<input type="submit"class="btn" value="Upload" />
