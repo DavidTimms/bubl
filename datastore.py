@@ -41,13 +41,15 @@ class Image(ndb.Model):
 	upvoters = ndb.PickleProperty()
 	downvoters = ndb.PickleProperty()
 
+	#def old_to_dict(self):
+	#	props = ['url', 'caption', 'creator_id', 'creator_name', 'upvoters', 'downvoters']
+	#	def build_dict(data_dict, prop):
+	#		data_dict[prop] = getattr(self, prop)
+	#		return data_dict
+	#	return reduce(build_dict, props, dict())
 	def to_dict(self):
 		props = ['url', 'caption', 'creator_id', 'creator_name', 'upvoters', 'downvoters']
-		def build_dict(data_dict, prop):
-			data_dict[prop] = getattr(self, prop)
-			return data_dict
-		return reduce(build_dict, props, dict())
-
+		return dict(map(lambda x: (x, getattr(self, x)), props))
 	@classmethod
 	def create(cls, topic_url, image_url, image_caption, creator_id, creator_name):
 		image = Image(

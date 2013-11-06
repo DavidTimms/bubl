@@ -77,7 +77,7 @@ h1 {
 
 .column-1 {
   display: inline-block;
-  width: 25%;
+  width: 20%;
   float: left;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -85,7 +85,10 @@ h1 {
   padding: 8px; }
 
 .column-1:nth-of-type(1) {
-  width: 50%; }
+  width: 60%; }
+
+.column-1:nth-of-type(2) {
+  width: 40%; }
 
 .image-bubl {
   margin-bottom: 20px;
