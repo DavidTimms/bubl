@@ -10,8 +10,8 @@ class Topic(ndb.Model):
 	def to_dict(self):
 		images = map(lambda x: x.to_dict(), Image.topic_images(self.url))
 		return {
-			'topic_name': self.name,
 			'topic_url': self.url,
+			'topic_name': self.name,
 			'creator_id': self.creator_id,
 			'creator_name': self.creator_name,
 			'images': images
@@ -42,14 +42,11 @@ class Image(ndb.Model):
 	downvoters = ndb.PickleProperty()
 
 	def to_dict(self):
-		return {
-			'url': self.url,
-			'caption': self.caption,
-			'creator_id': self.creator_id,
-			'creator_name': self.creator_name,
-			'upvoters': self.upvoters,
-			'downvoters': self.downvoters
-		}
+		props = ['url', 'caption', 'creator_id', 'creator_name', 'upvoters', 'downvoters']
+		def build_dict(data_dict, prop):
+			data_dict[prop] = getattr(self, prop)
+			return data_dict
+		return reduce(build_dict, props, dict())
 
 	@classmethod
 	def create(cls, topic_url, image_url, image_caption, creator_id, creator_name):

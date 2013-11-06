@@ -26,6 +26,7 @@ class TopicHandler(webapp2.RequestHandler):
 				page_data['logged_in'] = True
 				page_data['user_name'] = user.nickname()
 				page_data['user_id'] = user.user_id()
+			#self.response.write(str(page_data))
 			self.response.write(render('page.html', page_data))
 
 	def create_topic(self, topic_url):
