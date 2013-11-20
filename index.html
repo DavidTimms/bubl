@@ -9,7 +9,6 @@
 		<link href="css/style.css" rel="stylesheet" />
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
 		<!--<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>-->
-		<script src="js/index.js"></script>
 	</head>
 	<body>
 		<div class="container">
@@ -17,7 +16,7 @@
 				<h1>bubl</h1>
 			</div>
 			<div class="index-body">
-				<form method="POST" action="create_topic">
+				<form id="topic-form" method="POST" action="create_topic">
 					<div class="input-group">
 						<input type="text" name="topic_name" class="form-control" id="topic_name" placeholder="Topic name" />
 						<span class="input-group-btn">

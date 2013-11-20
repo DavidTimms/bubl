@@ -13,6 +13,7 @@ $light-grey: lighten(black, 38%);
 html {
 	margin: 0px;
 	height: 100%;
+	overflow-y: scroll;
 }
 body {
 	margin: 0px;
@@ -32,7 +33,7 @@ input[type="text"] {
 	background-color: lighten(black, 95%);
 	color: black;
 }
-.btn {
+.btn, .btn:focus {
 	background-color: $mid-grey;
 	color: $blue;
 	outline: none !important;
@@ -48,9 +49,14 @@ h1, h2, h3 {
 h1 {
 	font-size: 50px;
 	font-weight: 100;
+	a:link, a:visited, a:hover, a:active {
+		text-decoration: none;
+		color: $pink;
+	}
 }
 .hero-unit {
 	padding: 20px 35px;
+	margin-bottom: 20px;
 	background-color: $mid-grey;
 	color: $pink;
 	border-radius: 0px 0px 5px 5px;
@@ -72,10 +78,13 @@ h1 {
 .bubls-body {
 	margin-bottom: 50px;
 }
+.add-image-btn {
+	float: right;
+}
 .upload-form {
 	display: block;
 	width: 400px;
-	margin: 20px auto 30px;
+	margin: 0px auto 20px;
 	padding: 15px;
 	background-color: $mid-grey;
 	border-radius: 5px;
@@ -90,21 +99,33 @@ h1 {
 		}
 	}
 }
-.column-1 {
+.column {
 	display: inline-block;
 	width: 20%;
 	float: left;
 	box-sizing:border-box;
 	-moz-box-sizing:border-box; /* Firefox */
-	padding: 8px;
 }
-.column-1:nth-of-type(1) {
+.column:nth-of-type(1) {
 	width: 60%;
+	.column:nth-of-type(2) {
+		width: 66.6%;
+		.column {
+			width: 50%;
+		}
+	}
+	.column:nth-of-type(3) {
+		width: 33.3%;
+	}
 }
-.column-1:nth-of-type(2) {
+.column:nth-of-type(2) {
 	width: 40%;
+	.column {
+		width: 50%;
+	}
 }
 .image-bubl {
+	position: relative;
 	margin-bottom: 20px;
 	background-color: black;
 	border-radius: 8px;
@@ -117,6 +138,51 @@ h1 {
 	}
 	.caption {
 		padding: 5px 0px;
+	}
+	.vote-buttons {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+	}
+	.upvote, .downvote, .score {
+		display: inline-block;
+		z-index: 10;
+		background-color: rgba(black, 0.8);
+		font-size: 25px;
+		text-align: center;
+		width: 30px;
+		min-width: 30px;
+		height: 35px;
+		line-height: 34px;
+		border-radius: 8px;
+		&.active {
+			font-weight: 700;
+		}
+	}
+	.score {
+		font-size: 25px;
+		width: auto;
+		padding: 0px 3px;
+		sup {
+			top: -2px;
+		}
+	}
+	.upvote, .downvote {
+		&:hover {
+			background-color: rgba(black, 0.95);
+		}
+	}
+	.upvote {
+		color: rgba($blue, 0.6);
+		&.active {
+			color: $blue;
+		}
+	}
+	.downvote {
+		color: rgba($pink, 0.6);
+		&.active {
+			color: $pink;
+		}
 	}
 }
 

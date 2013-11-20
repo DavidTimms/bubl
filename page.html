@@ -10,7 +10,8 @@
 		<link href="css/style.css" rel="stylesheet" />
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
 		<!--<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>-->
-		<script src="js/index.js"></script>
+		<script src="js/topic-page.js">
+		</script>
 	</head>
 	<body>
 		<div class="container">
@@ -24,14 +25,19 @@
 					{% endif %}
 				</div>
 				<h1>
-					bubl
+					<a href="/">
+						bubl
+					</a>
 					<span class="topic_title">
 						{{topic.name}}
 					</span>
 				</h1>
-				<div class="creator_label">
+				<span class="creator_label">
 					Created by {{topic.creator_name}}
-				</div>
+				</span>
+				{% if user %}
+				<button class="add-image-btn btn">Add an image</button>
+				{% endif %}
 			</div>
 			<div class="bubls-body">
 				{% if user %}
@@ -41,16 +47,61 @@
 						<input type="submit"class="btn" value="Upload" />
 					</form>
 				{% endif %}
+				
+				{% for image in images recursive %}
+					{% if image and image.url %}
+						<a href="{{image.url}}">
+							<div class="image-bubl span3" id="{{image.key}}">
+								<img src="{{image.url}}" alt="{{image.caption}}" />
+								<div class="caption">
+									{{image.caption}}
+								</div>
+								<div class="vote-buttons">
+									<div class="score">
+										<sup>{{image.score}}</sup>
+									</div>
+									{% if user %}
+										<div class="upvote {% if user.id in image.upvoters %}active{% endif %}">
+											&#8679;
+										</div>
+										<div class="downvote {% if user.id in image.downvoters %}active{% endif %}">
+											&#8681;
+										</div>
+									{% endif %}
+								</div>
+							</div>
+						</a>
+					{% elif image and image is sequence %}
+						<div class="column">
+							{{loop(image)}}
+						</div>
+					{% endif %}
+				{% endfor %}
+				<!--
 				{% for image in images %}
 					<div class="column-1">
-						<a href="{{image.url}}"><div class="image-bubl span3">
+						<a href="{{image.url}}"><div class="image-bubl span3" id="{{image.key}}">
 							<img src="{{image.url}}" alt="{{image.caption}}" />
 							<div class="caption">
 								{{image.caption}}
 							</div>
+							<div class="vote-buttons">
+								<div class="score">
+									<sup>{{image.score}}</sup>
+								</div>
+								{% if user %}
+									<div class="upvote {% if user.id in image.upvoters %}active{% endif %}">
+										&#8679;
+									</div>
+									<div class="downvote {% if user.id in image.downvoters %}active{% endif %}">
+										&#8681;
+									</div>
+								{% endif %}
+							</div>
 						</div></a>
 					</div>
 				{% endfor %}
+				-->
 			</div>
 		</div>
 	</body>
