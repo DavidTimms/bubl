@@ -3,6 +3,28 @@ $(document).ready(function () {
 	$('.add-image-btn').click(function () {
 		upload_form.slideToggle();
 	});
+
+	$('.url-input').hide();
+	$('.type-select').click(function (event) {
+		var selection = $(this).attr('value');
+		var selectors = {url: '.url-input', file: '.file-input'};
+		for (var x in selectors) {
+			if (x === selection)
+				$(selectors[x]).show();
+			else 
+				$(selectors[x]).hide();
+		}
+	});
+
+	var upload_input = $('.file-upload');
+	var dummy_input = $('.file-input');
+	$('.file-input').click(function (event) {
+		upload_input.click();
+	});
+	upload_input.on('change', function (event) {
+		var filename = this.value.split(/\\|\//).pop();
+		dummy_input.html(filename);
+	});
 	
 	$('.upvote, .downvote').click(function (event) {
 		var self = $(this);

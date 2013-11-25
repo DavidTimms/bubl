@@ -41,8 +41,18 @@
 			</div>
 			<div class="bubls-body">
 				{% if user %}
-					<form class="upload-form" method="POST" action="./{{topic.url}}/add_image">
-						<input type="text" class="form-control" name="image_url" placeholder="Image URL" />
+					<form class="upload-form" method="POST" action="./{{topic.url}}/add_image" enctype="multipart/form-data">
+						<label>
+							<input type="radio" class="type-select" name="image_type" value="file" checked />
+							Upload an image
+						</label>
+						<label>
+							<input type="radio" class="type-select" name="image_type" value="url" />
+							Add image from a URL
+						</label>
+						<div class="form-control file-input">Click to choose a file</div>
+						<input type="file" class="file-upload" name="image" />
+						<input type="text" class="form-control url-input" name="image_url" placeholder="Image URL" />
 						<input type="text" class="form-control" name="image_caption" placeholder="Caption" />
 						<input type="submit"class="btn" value="Upload" />
 					</form>

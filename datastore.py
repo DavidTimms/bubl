@@ -7,9 +7,6 @@ class Topic(ndb.Model):
 	creator_id = ndb.StringProperty()
 	creator_name = ndb.StringProperty()
 
-	#def to_dict(self):
-	#	props = ['url', 'name', 'creator_id', 'creator_name']
-	#	return dict(map(lambda x: (x, getattr(self, x)), props))
 
 	def get_images(self):
 		return map(lambda x: x.to_dict(), Image.topic_images(self.url))
@@ -39,10 +36,6 @@ class Image(ndb.Model):
 	upvoters = ndb.PickleProperty()
 	downvoters = ndb.PickleProperty()
 	score = ndb.IntegerProperty()
-
-	#def to_dict(self):
-	#	props = ['url', 'caption', 'creator_id', 'creator_name', 'upvoters', 'downvoters']
-	#	return dict(map(lambda x: (x, getattr(self, x)), props))
 
 	def recalc_score(self):
 		self.score = len(self.upvoters) - len(self.downvoters)

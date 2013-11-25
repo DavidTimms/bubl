@@ -45,6 +45,7 @@ class TopicHandler(webapp2.RequestHandler):
 			self.response.write(view.render_topic_page(page_data))
 		except AssertionError as e:
 			logging.info(str(e.args))
+		#imgur.info('1FJzDyQ')
 
 	def create_topic(self):
 		try:
@@ -91,8 +92,18 @@ class TopicHandler(webapp2.RequestHandler):
 class ImageHandler(webapp2.RequestHandler):
 	def add_image(self, topic_url):
 		user = users.get_current_user()
-		image_url = self.request.get('image_url')
 		image_caption = self.request.get('image_caption')
+		if self.request.get('image_type') == 'file':
+			res = imgur.upload({
+				'image': self.request.get('image'),
+				'title': image_caption
+				})
+			if res is None or res['success'] is False:
+				self.response.write('Imgur upload failed')
+				return
+			image_url = res['data']['link']
+		else:
+			image_url = self.request.get('image_url')
 		if (not user) or (not topic_url) or (not image_url) or (not image_caption):
 			self.response.write('Image upload failed')
 		else:
