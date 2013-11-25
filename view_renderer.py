@@ -13,6 +13,8 @@ def render(template_url, data):
 		return template.render(data)
 
 def render_topic_page(data):
+	# constructs a tree data structure for the template to 
+	# convert into HTML for the correct layout
 	def img(i):
 		if i >= len(data['images']):
 			return None
@@ -23,8 +25,9 @@ def render_topic_page(data):
 		while i < len(data['images']):
 			yield data['images'][i]
 			i += 5
-	data['images'] = [[img(0),[img(3),list(col_imgs(8)),list(col_imgs(9))],img(4),list(col_imgs(5))],
-					[img(1),img(2),list(col_imgs(6)),list(col_imgs(7))]]
+			
+	data['images'] = [[img(0),[img(3),list(col_imgs(8)),list(col_imgs(9))],[img(4),list(col_imgs(7))]],
+					[img(1),img(2),list(col_imgs(5)),list(col_imgs(6))]]
 
 	#return data['images']
 	return render('page.html', data)

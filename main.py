@@ -3,6 +3,7 @@ import logging
 from google.appengine.api import users
 import datastore
 import view_renderer as view
+import imgur
 from inspect import isfunction
 
 def urlify(name):
@@ -15,16 +16,15 @@ def check(self, value, error_response):
 	else:
 		if isfunction(error_response):
 			error_response()
-			raise Exception('Check failed')
+			raise AssertionError('Check failed')
 		else:
 			self.response.status = 400;
 			self.response.write(error_response)
-			raise Exception('Check failed. ' + error_response)
-
+			raise AssertionError('Check failed. ' + error_response)
 
 class TopicHandler(webapp2.RequestHandler):
 	def topic_page(self, topic_url):
-		#try:
+		try:
 			topic = check(
 				self,
 				datastore.Topic.retrieve(topic_url),
@@ -43,8 +43,8 @@ class TopicHandler(webapp2.RequestHandler):
 
 			#self.response.write(str(page_data))
 			self.response.write(view.render_topic_page(page_data))
-		#except Exception as e:
-		#	logging.info(str(e.args))
+		except AssertionError as e:
+			logging.info(str(e.args))
 
 	def create_topic(self):
 		try:
@@ -61,7 +61,7 @@ class TopicHandler(webapp2.RequestHandler):
 				topic_url += '!'
 			datastore.Topic.create(topic_url, topic_name, user.user_id(), user.nickname())
 			self.redirect(str(self.request.host_url + '/' + topic_url))
-		except Exception as e:
+		except AssertionError as e:
 			logging.info(str(e.args))
 	def delete_topic(self):
 		try:
@@ -85,7 +85,7 @@ class TopicHandler(webapp2.RequestHandler):
 			topic.key.delete()
 			#self.redirect(str(self.request.host_url))
 			self.response.write('The page "' + topic_name + '" has been deleted.')
-		except Exception as e:
+		except AssertionError as e:
 			logging.info(str(e.args))
 
 class ImageHandler(webapp2.RequestHandler):
@@ -138,7 +138,7 @@ class ImageHandler(webapp2.RequestHandler):
 						image.upvoters.remove(user_id)
 			image.recalc_score()
 			image.put()
-		except Exception as e:
+		except AssertionError as e:
 			logging.info(str(e.args))
 
 class UserHandler(webapp2.RequestHandler):
