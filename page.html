@@ -8,10 +8,11 @@
 		<!--<link href="css/flat-ui.css" rel="stylesheet" />-->
 		<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
 		<link href="css/style.css" rel="stylesheet" />
+		<link href="css/lightbox.css" rel="stylesheet" />
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
 		<!--<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>-->
-		<script src="js/topic-page.js">
-		</script>
+		<script src="js/topic-page.js"></script>
+		<script src="js/lightbox-2.6.min.js"></script>
 	</head>
 	<body>
 		<div class="container">
@@ -41,7 +42,8 @@
 			</div>
 			<div class="bubls-body">
 				{% if user %}
-					<form class="upload-form" method="POST" action="./{{topic.url}}/add_image" enctype="multipart/form-data">
+					<form class="upload-form" method="POST" action="./{{topic.url}}/add_image" 
+						enctype="multipart/form-data" accept-charset="UTF-8">
 						<label>
 							<input type="radio" class="type-select" name="image_type" value="file" checked />
 							Upload an image
@@ -51,67 +53,55 @@
 							Add image from a URL
 						</label>
 						<div class="form-control file-input">Click to choose a file</div>
-						<input type="file" class="file-upload" name="image" />
+						<input type="file" class="file-upload" name="image" accept="image/*" />
 						<input type="text" class="form-control url-input" name="image_url" placeholder="Image URL" />
 						<input type="text" class="form-control" name="image_caption" placeholder="Caption" />
-						<input type="submit"class="btn" value="Upload" />
+						<input type="submit" class="btn" value="Upload" />
 					</form>
 				{% endif %}
 				
 				{% for image in images recursive %}
 					{% if image and image.url %}
-						<a href="{{image.url}}">
-							<div class="image-bubl span3" id="{{image.key}}">
-								<img src="{{image.url}}" alt="{{image.caption}}" />
+						<div class="image-bubl span3" id="{{image.key}}">
+							<a href="{{image.url}}" data-lightbox="{{image.key}}" title="{{image.caption}}">
+								<img src="{{image.thumb_url}}" alt="{{image.caption}}" />
 								<div class="caption">
 									{{image.caption}}
 								</div>
-								<div class="vote-buttons">
-									<div class="score">
-										<sup>{{image.score}}</sup>
+							</a>
+							<div class="vote-buttons">
+								<div class="score">
+									{{image.score}}
+								</div>
+								{% if user %}
+									<div class="downvote {% if user.id in image.downvoters %}active{% endif %}">
+										&#8681;
 									</div>
-									{% if user %}
-										<div class="upvote {% if user.id in image.upvoters %}active{% endif %}">
-											&#8679;
-										</div>
-										<div class="downvote {% if user.id in image.downvoters %}active{% endif %}">
-											&#8681;
+									<div class="upvote {% if user.id in image.upvoters %}active{% endif %}">
+										&#8679;
+									</div>
+									{% if user.id == image.creator_id %}
+										<div class="delete-image">
+											X
 										</div>
 									{% endif %}
-								</div>
+								{% endif %}
 							</div>
-						</a>
+						</div>
+						
 					{% elif image and image is sequence %}
 						<div class="column">
 							{{loop(image)}}
 						</div>
 					{% endif %}
 				{% endfor %}
-				<!--
-				{% for image in images %}
-					<div class="column-1">
-						<a href="{{image.url}}"><div class="image-bubl span3" id="{{image.key}}">
-							<img src="{{image.url}}" alt="{{image.caption}}" />
-							<div class="caption">
-								{{image.caption}}
-							</div>
-							<div class="vote-buttons">
-								<div class="score">
-									<sup>{{image.score}}</sup>
-								</div>
-								{% if user %}
-									<div class="upvote {% if user.id in image.upvoters %}active{% endif %}">
-										&#8679;
-									</div>
-									<div class="downvote {% if user.id in image.downvoters %}active{% endif %}">
-										&#8681;
-									</div>
-								{% endif %}
-							</div>
-						</div></a>
+				<div class="confirm-delete-template">
+					<div class="confirm-delete-box">
+						<div>Permanently delete this image?</div>
+						<button class="btn cancel-delete">Cancel</button>
+						<button class="btn confirm-delete">Delete</button>
 					</div>
-				{% endfor %}
-				-->
+				</div>
 			</div>
 		</div>
 	</body>

@@ -25,7 +25,9 @@ def render_topic_page(data):
 		while i < len(data['images']):
 			yield data['images'][i]
 			i += 5
-			
+
+	for large_image in data['images'][:4]:
+		large_image['thumb_url'] = large_image['url']
 	data['images'] = [[img(0),[img(3),list(col_imgs(8)),list(col_imgs(9))],[img(4),list(col_imgs(7))]],
 					[img(1),img(2),list(col_imgs(5)),list(col_imgs(6))]]
 

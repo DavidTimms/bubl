@@ -1,9 +1,12 @@
 $(document).ready(function () {
+
+	// Hide and show the upload form
 	var upload_form = $('.upload-form').hide();
 	$('.add-image-btn').click(function () {
 		upload_form.slideToggle();
 	});
 
+	// switch between adding by file and by URL
 	$('.url-input').hide();
 	$('.type-select').click(function (event) {
 		var selection = $(this).attr('value');
@@ -16,6 +19,7 @@ $(document).ready(function () {
 		}
 	});
 
+	// Control the file upload input
 	var upload_input = $('.file-upload');
 	var dummy_input = $('.file-input');
 	$('.file-input').click(function (event) {
@@ -26,14 +30,16 @@ $(document).ready(function () {
 		dummy_input.html(filename);
 	});
 	
-	$('.upvote, .downvote').click(function (event) {
+	var bubl_boxes = $('.image-bubl');
+	// upvote and downvote
+	bubl_boxes.on('click', '.upvote, .downvote', function (event) {
 		var self = $(this);
 		event.preventDefault();
 		var image_id = self.closest('.image-bubl').attr('id');
 
 		var alter_score = function (amount) {
 			var score_node = self.closest('.vote-buttons')
-								.find('.score sup');
+								.find('.score');
 			var score = Number(score_node.html());
 			score_node.html(score + amount);
 		}
@@ -73,5 +79,46 @@ $(document).ready(function () {
 		}).always(function (res) {
 			console.log(res);
 		});
+	});
+
+	var confirm_delete_template = $('.confirm-delete-template').html();
+	$('.confirm-delete-template').remove();
+	bubl_boxes.on('click', '.delete-image', function (event) {
+	//$('.delete-image').click(function (event) {
+		event.preventDefault();
+
+		var container = $(this).closest('.image-bubl');
+		var link = container.find('a');
+		var height = container.height();
+		var confirm_box = $('<div></div>')
+			.css('height', height + 'px')
+			.css('padding-top', height/2 + 'px')
+			.addClass('image-bubl')
+			.html(confirm_delete_template)
+			.insertAfter(container);
+
+
+		// attach event handlers for the cancel and delete buttons
+		confirm_box.find('.cancel-delete').click(function (event) {
+			confirm_box.remove();
+			container.show();
+		});
+
+		confirm_box.find('.confirm-delete').click(function (event) {
+			var image_id = container.attr('id');
+
+			// send delete request to server
+			$.post(location.pathname + '/delete_image', {
+				'image_id': image_id
+			}).always(function (res) {
+				console.log(res);
+			});
+
+			// remove the image and confirm box from the page
+			confirm_box.slideUp();
+			container.remove();
+		});
+			
+		container.hide();
 	});
 });

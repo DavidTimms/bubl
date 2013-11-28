@@ -18,7 +18,7 @@ def send_request(endpoint, method=urlfetch.POST, data=None):
 		if res.status_code != 200:
 			logging.error('Imgur Error: status code = ' + str(res.status_code))
 		else:
-			return res
+			return json.loads(res.content)
 	except urlfetch.Error as e:
 		logging.error('Imgur error: invalid request')
 
@@ -26,10 +26,12 @@ def upload(data):
 	endpoint = 'upload'
 	data['type'] = 'file'
 	enc_data = urllib.urlencode(data)
-	res = send_request(endpoint, data=enc_data)
-	return json.loads(res.content)
+	return send_request(endpoint, data=enc_data)
 
 def info(imgur_id):
 	endpoint = 'image/' + imgur_id
-	res = send_request(endpoint, method=urlfetch.GET)
-	return json.loads(res.content)
+	return send_request(endpoint, method=urlfetch.GET)
+
+def delete(delete_hash):
+	endpoint = 'image/' + delete_hash
+	return send_request(endpoint, method=urlfetch.DELETE)

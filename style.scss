@@ -118,13 +118,13 @@ h1 {
 }
 .bubls-body>.column:nth-of-type(1) {
 	width: 60%;
-	&>.column:nth-of-type(1) {
+	&>.column:nth-of-type(2) {
 		width: 66.6%;
 		.column {
 			width: 50%;
 		}
 	}
-	&>.column:nth-of-type(2) {
+	&>.column:nth-of-type(3) {
 		width: 33.3%;
 	}
 }
@@ -155,14 +155,26 @@ h1 {
 	.caption {
 		padding: 5px 0px;
 	}
+	.confirm-delete-box {
+		color: $pink;
+		height: 80px;
+		margin-top: -40px;
+		.confirm-delete {
+			color: $pink;
+		}
+		div {
+			padding-bottom: 10px;
+		}
+	}
 	.vote-buttons {
 		visibility: hidden;
 		position: absolute;
-		top: 5px;
-		right: 5px;
+		top: 0px;
+		right: 0px;
 		z-index: 5;
 	}
-	.upvote, .downvote, .score {
+	.upvote, .downvote, .score, .delete-image {
+		float: right;
 		display: inline-block;
 		background-color: rgba(black, 0.8);
 		font-size: 25px;
@@ -171,26 +183,36 @@ h1 {
 		min-width: 30px;
 		height: 35px;
 		line-height: 34px;
-		border-radius: 8px;
+		border-left: 1px solid black;
 		&.active {
 			font-weight: 700;
 		}
+		&:last-of-type {
+			border-left: 0px solid transparent;
+			border-radius: 0px 0px 0px 10px;
+		}
 	}
 	.score {
-		font-size: 25px;
+		font-size: 20px;
 		width: auto;
 		padding: 0px 3px;
 		sup {
 			top: -2px;
 		}
 	}
-	.upvote, .downvote {
+	.upvote, .downvote, .delete-image {
 		font-weight: 700;
 		color: rgba(white, 0.6);
 		&:hover {
-			background-color: black;
+			cursor: pointer;
+			background-color: $mid-grey;
 			opacity: 0.8;
+			//border-bottom: 1px solid rgba(white, 0.9);
 		}
+	}
+	.delete-image {
+		color: red;
+		font-size: 20px;
 	}
 	.upvote {
 		//color: rgba($blue, 0.6);

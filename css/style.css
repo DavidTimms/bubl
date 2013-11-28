@@ -99,11 +99,11 @@ h1 {
 
 .bubls-body > .column:nth-of-type(1) {
   width: 60%; }
-  .bubls-body > .column:nth-of-type(1) > .column:nth-of-type(1) {
-    width: 66.6%; }
-    .bubls-body > .column:nth-of-type(1) > .column:nth-of-type(1) .column {
-      width: 50%; }
   .bubls-body > .column:nth-of-type(1) > .column:nth-of-type(2) {
+    width: 66.6%; }
+    .bubls-body > .column:nth-of-type(1) > .column:nth-of-type(2) .column {
+      width: 50%; }
+  .bubls-body > .column:nth-of-type(1) > .column:nth-of-type(3) {
     width: 33.3%; }
 
 .bubls-body > .column:nth-of-type(2) {
@@ -125,13 +125,22 @@ h1 {
     z-index: 5; }
   .image-bubl .caption {
     padding: 5px 0px; }
+  .image-bubl .confirm-delete-box {
+    color: #f92672;
+    height: 80px;
+    margin-top: -40px; }
+    .image-bubl .confirm-delete-box .confirm-delete {
+      color: #f92672; }
+    .image-bubl .confirm-delete-box div {
+      padding-bottom: 10px; }
   .image-bubl .vote-buttons {
     visibility: hidden;
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 0px;
+    right: 0px;
     z-index: 5; }
-  .image-bubl .upvote, .image-bubl .downvote, .image-bubl .score {
+  .image-bubl .upvote, .image-bubl .downvote, .image-bubl .score, .image-bubl .delete-image {
+    float: right;
     display: inline-block;
     background-color: rgba(0, 0, 0, 0.8);
     font-size: 25px;
@@ -140,21 +149,28 @@ h1 {
     min-width: 30px;
     height: 35px;
     line-height: 34px;
-    border-radius: 8px; }
-    .image-bubl .upvote.active, .image-bubl .downvote.active, .image-bubl .score.active {
+    border-left: 1px solid black; }
+    .image-bubl .upvote.active, .image-bubl .downvote.active, .image-bubl .score.active, .image-bubl .delete-image.active {
       font-weight: 700; }
+    .image-bubl .upvote:last-of-type, .image-bubl .downvote:last-of-type, .image-bubl .score:last-of-type, .image-bubl .delete-image:last-of-type {
+      border-left: 0px solid transparent;
+      border-radius: 0px 0px 0px 10px; }
   .image-bubl .score {
-    font-size: 25px;
+    font-size: 20px;
     width: auto;
     padding: 0px 3px; }
     .image-bubl .score sup {
       top: -2px; }
-  .image-bubl .upvote, .image-bubl .downvote {
+  .image-bubl .upvote, .image-bubl .downvote, .image-bubl .delete-image {
     font-weight: 700;
     color: rgba(255, 255, 255, 0.6); }
-    .image-bubl .upvote:hover, .image-bubl .downvote:hover {
-      background-color: black;
+    .image-bubl .upvote:hover, .image-bubl .downvote:hover, .image-bubl .delete-image:hover {
+      cursor: pointer;
+      background-color: #383838;
       opacity: 0.8; }
+  .image-bubl .delete-image {
+    color: red;
+    font-size: 20px; }
   .image-bubl .upvote.active, .image-bubl .upvote:hover {
     color: #66d9ef; }
   .image-bubl .downvote.active, .image-bubl .downvote:hover {

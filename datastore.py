@@ -36,6 +36,7 @@ class Image(ndb.Model):
 	upvoters = ndb.PickleProperty()
 	downvoters = ndb.PickleProperty()
 	score = ndb.IntegerProperty()
+	delete_hash = ndb.StringProperty()
 
 	def recalc_score(self):
 		self.score = len(self.upvoters) - len(self.downvoters)
@@ -44,14 +45,23 @@ class Image(ndb.Model):
 	def to_dict(self):
 		d = super(Image, self).to_dict()
 		d['key'] = self.key.urlsafe()
+		if ('imgur.com' in self.url):
+			# set the imgur medium sized image url as thumbnail
+			parts = self.url.split('.')
+			d['thumb_url'] = '.'.join(parts[:-1]) + 'm.' + parts[-1]
+		else:
+			d['thumb_url'] = self.url
 		return d
+
+	def delete(self):
+		self.key.delete()
 
 	@classmethod
 	def get_by_urlsafe_id(cls, urlsafe_id):
 		return ndb.Key(urlsafe = urlsafe_id).get()
 
 	@classmethod
-	def create(cls, topic_url, image_url, image_caption, creator_id, creator_name):
+	def create(cls, topic_url, image_url, image_caption, creator_id, creator_name, delete_hash):
 		image = Image(
 			parent = Topic.retrieve(topic_url).key,
 			url = image_url,
@@ -60,8 +70,9 @@ class Image(ndb.Model):
 			creator_id = creator_id,
 			upvoters = list(),
 			downvoters = list(),
-			score = 0)
-		return image.put()	
+			score = 0,
+			delete_hash = delete_hash)
+		return image.put()
 
 	@classmethod
 	def topic_images(cls, topic_url):
