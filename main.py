@@ -15,7 +15,7 @@ def urlify(name):
 	# remove empty strings
 	words = [word for word in words if word]
 	# join words with a dash
-	return '-'.join(words)
+	return str('-'.join(words))
 
 def check(self, value, error_response):
 	if value:

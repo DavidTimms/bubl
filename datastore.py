@@ -7,26 +7,33 @@ class Topic(ndb.Model):
 	creator_id = ndb.StringProperty()
 	creator_name = ndb.StringProperty()
 
-
 	def get_images(self):
 		return map(lambda x: x.to_dict(), Image.topic_images(self.url))
-	@staticmethod
-	def ancestor():
-		return ndb.Key("TopicSet", "master")
+	#@staticmethod
+	#def ancestor():
+	#	return ndb.Key("TopicSet", "master")
 	@classmethod
 	def create(cls, topic_url, topic_name, creator_id, creator_name):
-		topic = Topic(
-			parent = cls.ancestor(),
-			url = str(topic_url),
-			name = topic_name,
-			creator_name = creator_name,
-			creator_id = creator_id)
+		#topic = Topic(
+		#	parent = cls.ancestor(),
+		#	url = topic_url,
+		#	name = topic_name,
+		#	creator_name = creator_name,
+		#	creator_id = creator_id)
+		topic = cls.get_or_insert(topic_url)
+		if topic.url == topic_url:
+			raise Exception('topic URL already in use')
+		topic.url = topic_url
+		topic.name = topic_name
+		topic.creator_name = creator_name
+		topic.creator_id = creator_id
 		topic.put()
 		return topic
 
 	@classmethod
 	def retrieve(cls, url):
-		return cls.query(Topic.url == url, ancestor = cls.ancestor()).get()
+		return ndb.Key("Topic", url).get()
+		#return cls.query(Topic.url == url, ancestor = cls.ancestor()).get()
 
 class Image(ndb.Model):
 	url = ndb.StringProperty()
