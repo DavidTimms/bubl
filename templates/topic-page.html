@@ -12,10 +12,8 @@
 {% block return_url %}
 	topic_url={{topic.url}}
 {% endblock %}
-{% block topic_title %}
-	<span class="topic_title">
-		{{topic.name}}
-	</span>
+{% block main_heading %}
+	{{topic.name}}
 {% endblock %}
 {% block header_content %}
 	<span class="creator_label">

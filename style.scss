@@ -19,6 +19,7 @@ body {
 	margin: 0px;
 	height: 100%;
 	background-color: $dark-grey;
+	background-image: url(../img/bg.png);
 	color: darken(white, 15%);
 	font-family: 'Lato', sans-serif;
 }
@@ -28,6 +29,9 @@ a img {
 }
 a:link, a:hover, a:active, a:visited {
 	color: $blue;
+}
+.container {
+	min-width: 700px;
 }
 .form-control {
 	background-color: lighten(black, 95%);
@@ -55,8 +59,8 @@ h1 {
 	}
 }
 .header {
-	padding: 20px 35px;
-	margin: 0px 5px 20px;
+	padding: 20px 15px;
+	margin: 0px 0px 20px;
 	//background-color: $mid-grey;
 	color: $pink;
 	//border-radius: 0px 0px 5px 5px;
@@ -71,12 +75,12 @@ h1 {
 .user-box {
 	float: right;
 }
-.index-body {
-	width: 400px;
-	margin: 100px auto;
-}
-.bubls-body {
-	margin-bottom: 50px;
+.create-topic-box {
+	padding-top: 45px;
+	max-width: 400px;
+	h2 {
+		margin-bottom: 15px;
+	}
 }
 .add-image-btn {
 	float: right;
@@ -123,6 +127,9 @@ h1 {
 	.file-upload {
 		display: none;
 	}
+}
+.bubls-body {
+	margin-bottom: 50px;
 }
 .column {
 	display: inline-block;
@@ -242,6 +249,7 @@ h1 {
 	}
 }
 
+/*
 // Responsive section display TESTING ONLY
 body:before {
 	content: 'Default';
@@ -254,14 +262,14 @@ body:before {
 	color: white;
 	border-radius: 0px 0px 12px 0px;
 }
-/* Large desktop */
+// Large desktop
 @media ($large-desktop) {
 	body:before {
 		content: 'Large desktop';
 	}
 }
  
-/* Portrait tablet to landscape and desktop */
+// Portrait tablet to landscape and desktop
 @media ($desktop) and ($land-tablet) {
 	body:before {
 		content: 'Portrait tablet to landscape and desktop';
@@ -269,17 +277,18 @@ body:before {
 
 }
  
-/* Landscape phone to portrait tablet */
+// Landscape phone to portrait tablet
 @media ($port-tablet)  {
 	body:before {
 		content: 'Landscape phone to portrait tablet';
 	}
 }
  
-/* Landscape phones and down */
+// Landscape phones and down
 @media ($phone) {
 	body:before {
 		content: 'Landscape phones and down';
 	}
 
 }
+*/

@@ -1,10 +1,19 @@
 {% extends "templates/page-shell.html" %}
 <!DOCTYPE html>
+{% block main_heading %}
+	Smart Photo Sharing
+{% endblock %}
 {% block content %}
-	<div class="index-body">
+	<div class="col-xs-5">
+		<h1>bubl is a new way to collect, rate and share images</h1>
+	</div>
+	<div class="col-xs-1">
+	</div>
+	<div class="col-xs-5 create-topic-box">
+	<h2>Create a new page now!</h2>
 		<form id="topic-form" method="POST" action="create_topic" accept-charset="UTF-8">
 			<div class="input-group">
-				<input type="text" name="topic_name" class="form-control" id="topic_name" placeholder="Topic name" />
+				<input type="text" name="topic_name" class="form-control" id="topic_name" placeholder="pick a topic name" />
 				<span class="input-group-btn">
 					<input type="submit" class="btn" value="Create" />
 				</span>
