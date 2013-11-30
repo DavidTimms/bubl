@@ -9,6 +9,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     autoescape=True)
 
 def render(template_url, data):
+		template_url = 'templates/' + template_url + '.html'
 		template = JINJA_ENVIRONMENT.get_template(template_url)
 		return template.render(data)
 
@@ -32,4 +33,4 @@ def render_topic_page(data):
 					[img(1),img(2),list(col_imgs(5)),list(col_imgs(6))]]
 
 	#return data['images']
-	return render('page.html', data)
+	return render('topic-page', data)

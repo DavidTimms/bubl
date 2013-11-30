@@ -6,7 +6,7 @@ $phone: 'max-width: 480px';
 
 $pink: #f92672;
 $blue: #66d9ef;
-$mid-grey: lighten(black, 22%);
+$mid-grey: lighten(black, 20%);
 $dark-grey: lighten(black, 8%);
 $light-grey: lighten(black, 38%);
 
@@ -54,12 +54,12 @@ h1 {
 		color: $pink;
 	}
 }
-.hero-unit {
+.header {
 	padding: 20px 35px;
-	margin-bottom: 20px;
-	background-color: $mid-grey;
+	margin: 0px 5px 20px;
+	//background-color: $mid-grey;
 	color: $pink;
-	border-radius: 0px 0px 5px 5px;
+	//border-radius: 0px 0px 5px 5px;
 	height: 150px;
 }
 .topic_title {
@@ -89,16 +89,29 @@ h1 {
 	background-color: $mid-grey;
 	border-radius: 5px;
 	text-align: center;
-	input {
+	h3 {
+		margin-top: 10px;
+		color: $blue;
+	}
+	.form-control {
 		margin-top: 5px;
 	}
-	label {
-		display: block;
+	.type-select-box {
 		text-align: left;
-		padding-left: 5px;
+		padding: 10px 5px;
+		label {
+			display: block;
+			cursor: pointer;
+		}
+		.type-select {
+			margin-right: 3px;
+			position: relative;
+			top: 1px;
+		}
 	}
 	.btn {
 		background-color: $dark-grey;
+		margin-top: 10px;
 		&:hover {
 			opacity: 0.8;
 		}
@@ -147,9 +160,12 @@ h1 {
 			visibility: visible;
 		}
 	}
+	.image-wrapper {
+		overflow: hidden;
+		max-height: 600px;
+	}
 	img {
 		width: 100%;
-		//border-radius: 7px 7px 0px 0px;
 		z-index: 5;
 	}
 	.caption {
@@ -183,12 +199,10 @@ h1 {
 		min-width: 30px;
 		height: 35px;
 		line-height: 34px;
-		border-left: 1px solid black;
 		&.active {
 			font-weight: 700;
 		}
 		&:last-of-type {
-			border-left: 0px solid transparent;
 			border-radius: 0px 0px 0px 10px;
 		}
 	}

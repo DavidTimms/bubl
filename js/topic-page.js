@@ -1,7 +1,13 @@
 $(document).ready(function () {
+	var bubl_boxes = $('.image-bubl');
+	var upload_form = $('.upload-form');
+
+	var max_img_height = Math.max($(window).height() * 0.8, 250);
+	$('.image-wrapper').css('max-height', max_img_height + 'px');
 
 	// Hide and show the upload form
-	var upload_form = $('.upload-form').hide();
+	if (bubl_boxes.length > 0)
+		upload_form.hide();
 	$('.add-image-btn').click(function () {
 		upload_form.slideToggle();
 	});
@@ -29,8 +35,7 @@ $(document).ready(function () {
 		var filename = this.value.split(/\\|\//).pop();
 		dummy_input.html(filename);
 	});
-	
-	var bubl_boxes = $('.image-bubl');
+
 	// upvote and downvote
 	bubl_boxes.on('click', '.upvote, .downvote', function (event) {
 		var self = $(this);

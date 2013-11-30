@@ -22,7 +22,7 @@ a:link, a:hover, a:active, a:visited {
   color: black; }
 
 .btn, .btn:focus {
-  background-color: #383838;
+  background-color: #333333;
   color: #66d9ef;
   outline: none !important; }
 
@@ -41,12 +41,10 @@ h1 {
     text-decoration: none;
     color: #f92672; }
 
-.hero-unit {
+.header {
   padding: 20px 35px;
-  margin-bottom: 20px;
-  background-color: #383838;
+  margin: 0px 5px 20px;
   color: #f92672;
-  border-radius: 0px 0px 5px 5px;
   height: 150px; }
 
 .topic_title {
@@ -73,17 +71,27 @@ h1 {
   width: 400px;
   margin: 0px auto 20px;
   padding: 15px;
-  background-color: #383838;
+  background-color: #333333;
   border-radius: 5px;
   text-align: center; }
-  .upload-form input {
+  .upload-form h3 {
+    margin-top: 10px;
+    color: #66d9ef; }
+  .upload-form .form-control {
     margin-top: 5px; }
-  .upload-form label {
-    display: block;
+  .upload-form .type-select-box {
     text-align: left;
-    padding-left: 5px; }
+    padding: 10px 5px; }
+    .upload-form .type-select-box label {
+      display: block;
+      cursor: pointer; }
+    .upload-form .type-select-box .type-select {
+      margin-right: 3px;
+      position: relative;
+      top: 1px; }
   .upload-form .btn {
-    background-color: #141414; }
+    background-color: #141414;
+    margin-top: 10px; }
     .upload-form .btn:hover {
       opacity: 0.8; }
   .upload-form .file-input {
@@ -120,6 +128,9 @@ h1 {
   margin: 5px 5px 10px; }
   .image-bubl:hover .vote-buttons {
     visibility: visible; }
+  .image-bubl .image-wrapper {
+    overflow: hidden;
+    max-height: 600px; }
   .image-bubl img {
     width: 100%;
     z-index: 5; }
@@ -148,12 +159,10 @@ h1 {
     width: 30px;
     min-width: 30px;
     height: 35px;
-    line-height: 34px;
-    border-left: 1px solid black; }
+    line-height: 34px; }
     .image-bubl .upvote.active, .image-bubl .downvote.active, .image-bubl .score.active, .image-bubl .delete-image.active {
       font-weight: 700; }
     .image-bubl .upvote:last-of-type, .image-bubl .downvote:last-of-type, .image-bubl .score:last-of-type, .image-bubl .delete-image:last-of-type {
-      border-left: 0px solid transparent;
       border-radius: 0px 0px 0px 10px; }
   .image-bubl .score {
     font-size: 20px;
@@ -166,7 +175,7 @@ h1 {
     color: rgba(255, 255, 255, 0.6); }
     .image-bubl .upvote:hover, .image-bubl .downvote:hover, .image-bubl .delete-image:hover {
       cursor: pointer;
-      background-color: #383838;
+      background-color: #333333;
       opacity: 0.8; }
   .image-bubl .delete-image {
     color: red;

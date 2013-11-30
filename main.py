@@ -100,6 +100,7 @@ class ImageHandler(webapp2.RequestHandler):
 	def add_image(self, topic_url):
 		user = users.get_current_user()
 		image_caption = self.request.get('image_caption')
+		delete_hash = None
 		if self.request.get('image_type') == 'file':
 			res = imgur.upload({
 				'image': self.request.get('image'),
@@ -205,7 +206,24 @@ class UserHandler(webapp2.RequestHandler):
 			return_url += self.request.GET['topic_url']
 		self.redirect(users.create_logout_url(return_url))
 
+class HomeHandler(webapp2.RequestHandler):
+	def homepage(self):
+		user = users.get_current_user()
+		page_data = dict()
+		if user:
+			page_data['user'] = {
+				'name': user.nickname(),
+				'id': user.user_id()
+			}
+
+		#self.response.write(str(page_data))
+		self.response.write(view.render('home-page', page_data))
+
 app = webapp2.WSGIApplication([
+	webapp2.Route('/', 
+		handler=HomeHandler, 
+		name='homepage', 
+		handler_method='homepage'),
 	webapp2.Route('/login', 
 		handler=UserHandler, 
 		name='login', 

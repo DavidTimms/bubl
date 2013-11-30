@@ -1,0 +1,97 @@
+{% extends "templates/page-shell.html" %}
+{% block title %}
+	{{topic.name}} |
+{% endblock %}
+{% block css %}
+	<link href="css/lightbox.css" rel="stylesheet" />
+{% endblock %}
+{% block js %}
+	<script src="js/topic-page.js"></script>
+	<script src="js/lightbox-2.6.min.js"></script>
+{% endblock %}
+{% block return_url %}
+	topic_url={{topic.url}}
+{% endblock %}
+{% block topic_title %}
+	<span class="topic_title">
+		{{topic.name}}
+	</span>
+{% endblock %}
+{% block header_content %}
+	<span class="creator_label">
+		Created by {{topic.creator_name}}
+	</span>
+	{% if user %}
+	<button class="add-image-btn btn">Add an image</button>
+	{% endif %}
+{% endblock %}
+{% block content %}
+	<div class="bubls-body">
+		{% if user %}
+			<form class="upload-form" method="POST" action="./{{topic.url}}/add_image" 
+				enctype="multipart/form-data" accept-charset="UTF-8">
+				<h3>Add an Image</h3>
+				<div class="type-select-box">
+					<label>
+						<input type="radio" class="type-select" name="image_type" value="file" checked />
+						Upload an image
+					</label>
+					<label>
+						<input type="radio" class="type-select" name="image_type" value="url" />
+						Add image from a URL
+					</label>
+				</div>
+				<div class="form-control file-input">Click to choose a file</div>
+				<input type="file" class="file-upload" name="image" accept="image/*" />
+				<input type="text" class="form-control url-input" name="image_url" placeholder="Image URL" />
+				<input type="text" class="form-control" name="image_caption" placeholder="Caption" />
+				<input type="submit" class="btn" value="Upload" />
+			</form>
+		{% endif %}
+		
+		{% for image in images recursive %}
+			{% if image and image.url %}
+				<div class="image-bubl span3" id="{{image.key}}">
+					<a href="{{image.url}}" data-lightbox="{{topic.url}}" title="{{image.caption}}">
+						<div class="image-wrapper">
+							<img src="{{image.thumb_url}}" alt="{{image.caption}}" />
+						</div>
+						<div class="caption">
+							{{image.caption}}
+						</div>
+					</a>
+					<div class="vote-buttons">
+						<div class="score">
+							{{image.score}}
+						</div>
+						{% if user %}
+							<div class="downvote {% if user.id in image.downvoters %}active{% endif %}">
+								&#8681;
+							</div>
+							<div class="upvote {% if user.id in image.upvoters %}active{% endif %}">
+								&#8679;
+							</div>
+							{% if user.id == image.creator_id %}
+								<div class="delete-image">
+									X
+								</div>
+							{% endif %}
+						{% endif %}
+					</div>
+				</div>
+				
+			{% elif image and image is sequence %}
+				<div class="column">
+					{{loop(image)}}
+				</div>
+			{% endif %}
+		{% endfor %}
+		<div class="confirm-delete-template">
+			<div class="confirm-delete-box">
+				<div>Permanently delete this image?</div>
+				<button class="btn cancel-delete">Cancel</button>
+				<button class="btn confirm-delete">Delete</button>
+			</div>
+		</div>
+	</div>
+{% endblock %}

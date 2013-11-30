@@ -1,0 +1,14 @@
+{% extends "templates/page-shell.html" %}
+<!DOCTYPE html>
+{% block content %}
+	<div class="index-body">
+		<form id="topic-form" method="POST" action="create_topic" accept-charset="UTF-8">
+			<div class="input-group">
+				<input type="text" name="topic_name" class="form-control" id="topic_name" placeholder="Topic name" />
+				<span class="input-group-btn">
+					<input type="submit" class="btn" value="Create" />
+				</span>
+			</div>
+		</form>
+	</div>
+{% endblock %}
