@@ -19,7 +19,7 @@ a:link, a:hover, a:active, a:visited {
   color: #66d9ef; }
 
 .container {
-  min-width: 700px; }
+  min-width: 800px; }
 
 .form-control {
   background-color: #f2f2f2;
@@ -60,12 +60,6 @@ h1 {
 .user-box {
   float: right; }
 
-.create-topic-box {
-  padding-top: 45px;
-  max-width: 400px; }
-  .create-topic-box h2 {
-    margin-bottom: 15px; }
-
 .add-image-btn {
   float: right; }
 
@@ -102,6 +96,37 @@ h1 {
     cursor: pointer; }
   .upload-form .file-upload {
     display: none; }
+  .upload-form .error-box {
+    color: #f92672;
+    margin-top: 10px;
+    font-size: 110%;
+    text-shadow: 0px 0px 5px black; }
+
+.headline {
+  max-width: 450px; }
+
+.create-topic-box {
+  padding-top: 50px; }
+  .create-topic-box h2 {
+    margin-bottom: 15px; }
+  .create-topic-box form {
+    max-width: 400px;
+    margin: auto; }
+
+.row {
+  margin: 0px; }
+
+.intro {
+  width: 80%;
+  min-width: 700px;
+  margin: 70px auto 20px; }
+  .intro .arrow {
+    font-size: 50px;
+    line-height: 65px;
+    width: 50px;
+    float: right; }
+  .intro h2, .intro .arrow {
+    color: #66d9ef; }
 
 .bubls-body {
   margin-bottom: 50px; }

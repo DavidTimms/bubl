@@ -2,6 +2,7 @@ $(document).ready(function () {
 	var bubl_boxes = $('.image-bubl');
 	var upload_form = $('.upload-form');
 
+	// set max image height based on window height
 	var max_img_height = Math.max($(window).height() * 0.8, 250);
 	$('.image-wrapper').css('max-height', max_img_height + 'px');
 
@@ -25,15 +26,53 @@ $(document).ready(function () {
 		}
 	});
 
-	// Control the file upload input
+	// Show file explorer when file upload clicked
 	var upload_input = $('.file-upload');
 	var dummy_input = $('.file-input');
+	var caption_input = $('.caption-input');
 	$('.file-input').click(function (event) {
 		upload_input.click();
 	});
 	upload_input.on('change', function (event) {
 		var filename = this.value.split(/\\|\//).pop();
 		dummy_input.html(filename);
+	});
+
+	// Validate upload form
+	upload_form.reject = function(message) {
+		if (!this.error_box)
+			this.error_box = $('<div></div>')
+				.addClass('error-box')
+				.appendTo($(this));
+		this.error_box.html(message);
+		return false;
+	};
+	valid_extension = {
+		gif: true,
+		jpg: true,
+		jpeg: true,
+		png: true,
+		tiff: true,
+		bmp: true,
+		pdf: true,
+		xcf: true
+	}
+	upload_form.on('submit', function (event) {
+		var caption = $.trim(caption_input[0].value);
+		if (!caption || caption === '')
+			return upload_form.reject('Please provide a caption for your image.');
+
+		var file_url = upload_input[0].value;
+		if (!file_url || file_url === '')
+			return upload_form.reject('Please choose an image to upload.');
+
+		var extension = file_url.split('.').pop().toLowerCase();
+		if (!valid_extension[extension])
+			return upload_form.reject('Only JPEG, GIF, PNG, TIFF, BMP, PDF or XCF images can be uploaded.');
+
+		$(this).find('.btn')
+			.attr('disabled', 'true')
+			.attr('value','Uploading...');
 	});
 
 	// upvote and downvote

@@ -31,7 +31,7 @@ a:link, a:hover, a:active, a:visited {
 	color: $blue;
 }
 .container {
-	min-width: 700px;
+	min-width: 800px;
 }
 .form-control {
 	background-color: lighten(black, 95%);
@@ -74,13 +74,6 @@ h1 {
 }
 .user-box {
 	float: right;
-}
-.create-topic-box {
-	padding-top: 45px;
-	max-width: 400px;
-	h2 {
-		margin-bottom: 15px;
-	}
 }
 .add-image-btn {
 	float: right;
@@ -126,6 +119,42 @@ h1 {
 	}
 	.file-upload {
 		display: none;
+	}
+	.error-box {
+		color: $pink;
+		margin-top: 10px;
+		font-size: 110%;
+		text-shadow: 0px 0px 5px black;
+	}
+}
+.headline {
+	max-width: 450px;
+}
+.create-topic-box {
+	padding-top: 50px;
+	h2 {
+		margin-bottom: 15px;
+	}
+	form {
+		max-width: 400px;
+		margin: auto;
+	}
+}
+.row {
+	margin: 0px;
+}
+.intro {
+	width: 80%;
+	min-width: 700px;
+	margin: 70px auto 20px;
+	.arrow {
+		font-size: 50px;
+		line-height: 65px;
+		width: 50px;
+		float: right;
+	}
+	h2, .arrow {
+		color: $blue;
 	}
 }
 .bubls-body {

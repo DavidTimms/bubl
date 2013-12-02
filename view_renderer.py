@@ -27,10 +27,28 @@ def render_topic_page(data):
 			yield data['images'][i]
 			i += 5
 
-	for large_image in data['images'][:4]:
-		large_image['thumb_url'] = large_image['url']
+	def thumb_url(url, modifier):
+		if ('imgur.com' in url):
+			parts = url.split('.')
+			parts[-2] += modifier
+			return '.'.join(parts)
+		else:
+			return url
+	
+	# set the correct thumbnail URL from imgur
+	for image in data['images'][:1]:
+		image['thumb_url'] = image['url']	
+	for image in data['images'][1:4]:
+		image['thumb_url'] = thumb_url(image['url'], 'l')
+	for image in data['images'][4:]:
+		image['thumb_url'] = thumb_url(image['url'], 'm')
+
 	data['images'] = [[img(0),[img(3),list(col_imgs(8)),list(col_imgs(9))],[img(4),list(col_imgs(7))]],
 					[img(1),img(2),list(col_imgs(5)),list(col_imgs(6))]]
 
 	#return data['images']
 	return render('topic-page', data)
+
+def render_error(error_message):
+	data = {'error_message': error_message}
+	return render('error', data)

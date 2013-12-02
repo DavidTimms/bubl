@@ -4,20 +4,40 @@
 	Smart Photo Sharing
 {% endblock %}
 {% block content %}
-	<div class="col-xs-5">
-		<h1>bubl is a new way to collect, rate and share images</h1>
+	<div class="row">
+		<div class="col-xs-6">
+			<h1 class="headline">bubl is a new way to collect, rate and share images</h1>
+		</div>
+		<div class="col-xs-6 create-topic-box">
+			<form id="topic-form" method="POST" action="create_topic" accept-charset="UTF-8">
+				<h2>Create a new page now!</h2>
+				<div class="input-group">
+					<input type="text" name="topic_name" class="form-control" id="topic_name" placeholder="pick a topic name" />
+					<span class="input-group-btn">
+						<input type="submit" class="btn" value="Create" />
+					</span>
+				</div>
+			</form>
+		</div>
 	</div>
-	<div class="col-xs-1">
-	</div>
-	<div class="col-xs-5 create-topic-box">
-	<h2>Create a new page now!</h2>
-		<form id="topic-form" method="POST" action="create_topic" accept-charset="UTF-8">
-			<div class="input-group">
-				<input type="text" name="topic_name" class="form-control" id="topic_name" placeholder="pick a topic name" />
-				<span class="input-group-btn">
-					<input type="submit" class="btn" value="Create" />
-				</span>
+	<div class="row intro">
+		<div class="col-xs-4">
+			<div class="arrow">
+				&rarr;
 			</div>
-		</form>
+			<h2>Create a page</h2>
+			<p>for an event, celebrity or topic</p>
+		</div>
+		<div class="col-xs-4">
+			<div class="arrow">
+				&rarr;
+			</div>
+			<h2>Upload Images</h2>
+			<p>and get your friends to add some too</p>
+		</div>
+		<div class="col-xs-4">
+			<h2>Get voting</h2>
+			<p>Upvote the best images so they bubl up to the top of the page</p>
+		</div>
 	</div>
 {% endblock %}
