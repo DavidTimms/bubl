@@ -3,41 +3,35 @@ import logging
 from google.appengine.api import users
 import datastore
 import imgur
-from inspect import isfunction
-
-def check(self, value, error_response, status=400):
-	if value:
-		return value
-	else:
-		if isfunction(error_response):
-			error_response()
-			raise AssertionError('Check failed')
-		else:
-			self.response.status = status
-			self.response.write(error_response)
-			raise AssertionError('Check failed. ' + error_response)
+from utils import check
 
 class ImageHandler(webapp2.RequestHandler):
 	def add_image(self, topic_url):
-		user = users.get_current_user()
-		image_caption = self.request.get('image_caption')
-		delete_hash = None
-		if self.request.get('image_type') == 'file':
-			res = imgur.upload({
-				'image': self.request.get('image'),
-				'title': image_caption
-				})
-			if res is None or res['success'] is False:
-				self.response.write('Imgur upload failed')
-				return
-			logging.info(res['data'])
-			image_url = res['data']['link']
-			delete_hash = res['data']['deletehash']
-		else:
-			image_url = self.request.get('image_url')
-		if (not user) or (not topic_url) or (not image_url) or (not image_caption):
-			self.response.write('Image upload failed')
-		else:
+		try:
+			user = check(
+				self, 
+				users.get_current_user(), 
+				'You are not logged in')
+			image_caption = check(
+				self, 
+				self.request.get('image_caption'), 
+				'No image caption provided')
+			check(self, topic_url, 'No topic specified')
+
+			delete_hash = None
+			if self.request.get('image_type') == 'file':
+				image = check(self, self.request.get('image'), 'No image file')
+				res = imgur.upload({
+					'image': image,
+					'title': image_caption
+					})
+				check(self, res, 'Imgur upload failed')
+				check(self, res['success'], 'Imgur upload failed')
+				image_url = res['data']['link']
+				delete_hash = res['data']['deletehash']
+			else:
+				image_url = check(self, self.request.get('image_url'), 'No image URL file')
+
 			datastore.Image.create(
 				topic_url, 
 				image_url, 
@@ -46,6 +40,8 @@ class ImageHandler(webapp2.RequestHandler):
 				user.nickname(), 
 				delete_hash)
 			self.redirect(str(self.request.host_url + '/' + topic_url))
+		except AssertionError as e:
+			logging.info(str(e.args))
 	def delete_image(self, topic_url):
 		try:
 			user = check(

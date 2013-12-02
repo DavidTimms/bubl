@@ -1,35 +1,9 @@
 import webapp2
 import logging
-import os, sys
-import re
 from google.appengine.api import users
 import datastore
 import view_renderer as view
-import sys
-logging.info(sys.path)
-from inspect import isfunction
-
-def urlify(name):
-	# split into list of words
-	words = name.strip().lower().split(' ')
-	# remove non-alphanumeric chars from each word
-	words = map(lambda s: re.sub(r'\W', '', s), words)
-	# remove empty strings
-	words = [word for word in words if word]
-	# join words with a dash
-	return str('-'.join(words))
-
-def check(self, value, error_response, status=400):
-	if value:
-		return value
-	else:
-		if isfunction(error_response):
-			error_response()
-			raise AssertionError('Check failed')
-		else:
-			self.response.status = status
-			self.response.write(view.render_error(error_response))
-			raise AssertionError('Check failed. ' + error_response)
+from utils import check, urlify
 
 class TopicHandler(webapp2.RequestHandler):
 	def topic_page(self, topic_url):
