@@ -1,7 +1,16 @@
 {% extends "templates/page-shell.html" %}
-<!DOCTYPE html>
 {% block main_heading %}
 	Smart Photo Sharing
+{% endblock %}
+{% block header_content %}
+	<form id="search-form" class="search-form" method="GET" action="search" accept-charset="UTF-8">
+		<div class="input-group">
+			<input type="search" class="form-control search-query" name="query" placeholder="search topics" />
+			<span class="input-group-btn">
+				<button class="btn search-button">Search</button>
+			</span>
+		</div>
+	</form>
 {% endblock %}
 {% block content %}
 	<div class="row">

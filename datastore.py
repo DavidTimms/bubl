@@ -1,5 +1,6 @@
 from google.appengine.ext import ndb
 import logging
+import random
 
 class Topic(ndb.Model):
 	url = ndb.StringProperty()
@@ -71,3 +72,37 @@ class Image(ndb.Model):
 		# anc_key = Topic.retrieve(topic_url).key
 		anc_key = ndb.Key("Topic", topic_url)
 		return cls.query(ancestor = anc_key).order(-cls.score).fetch(30)
+
+SEARCH_SHARD_COUNT = 12
+
+class SearchIndexShard(ndb.Model):
+	index = ndb.PickleProperty(default = list())
+
+	@classmethod
+	def build_index(cls):
+		index = list()
+		for shard in cls.query():
+			index.extend(shard.index)
+		return index
+
+	@classmethod
+	@ndb.transactional
+	def add_topic(cls, topic_url, topic_name):
+		shard_num = str(random.randint(0, SEARCH_SHARD_COUNT - 1))
+		logging.info('adding ' + topic_name + ' to shard ' + str(shard_num))
+		shard = cls.get_by_id(shard_num)
+		if shard is None:
+			logging.info('creating shard')
+			shard = cls(id=shard_num)
+		shard.index.append((topic_url, topic_name))
+		logging.info('shard contents: ' + str(shard.index))
+		shard.put()
+
+	@classmethod
+	def remove_topic(cls, topic_url, topic_name):
+		topic = (topic_url, topic_name)
+		for shard_num in range(0, SEARCH_SHARD_COUNT):
+			shard = cls.get_by_id(str(shard_num))
+			if shard is not None and topic in shard.index:
+				shard.index.remove(topic)
+				shard.put()

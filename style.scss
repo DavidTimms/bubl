@@ -75,6 +75,27 @@ h1 {
 .user-box {
 	float: right;
 }
+.search-form {
+	float: right;
+	width: 300px;
+	.search-query {
+		border-radius: 18px 0px 0px 18px;
+	}
+	.search-button {
+		border-radius: 0px 18px 18px 0px;
+	}
+}
+.seach-results {
+	font-size: 18px;
+	line-height: 1.6;
+	padding: 0px 15px;
+	.search-form {
+		float: none;
+		width: 40%;
+		min-width: 300px;
+		margin-bottom: 15px;
+	}
+}
 .add-image-btn {
 	float: right;
 }
@@ -131,7 +152,7 @@ h1 {
 	max-width: 450px;
 }
 .create-topic-box {
-	padding-top: 50px;
+	padding-top: 80px;
 	h2 {
 		margin-bottom: 15px;
 	}

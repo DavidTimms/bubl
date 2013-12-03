@@ -128,7 +128,6 @@ $(document).ready(function () {
 	var confirm_delete_template = $('.confirm-delete-template').html();
 	$('.confirm-delete-template').remove();
 	bubl_boxes.on('click', '.delete-image', function (event) {
-	//$('.delete-image').click(function (event) {
 		event.preventDefault();
 
 		var container = $(this).closest('.image-bubl');

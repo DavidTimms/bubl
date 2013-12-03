@@ -43,6 +43,7 @@ class TopicHandler(webapp2.RequestHandler):
 			while datastore.Topic.retrieve(topic_url) != None:
 				topic_url += '!'
 			datastore.Topic.create(topic_url, topic_name, user.user_id(), user.nickname())
+			datastore.SearchIndexShard.add_topic(topic_url, topic_name)
 			self.redirect(str(self.request.host_url + '/' + topic_url))
 		except AssertionError as e:
 			logging.info(str(e.args))
@@ -66,6 +67,7 @@ class TopicHandler(webapp2.RequestHandler):
 				'Unable to delete topic page. You are not the user who created the page.')
 			topic_name = topic.name
 			topic.key.delete()
+			datastore.SearchIndexShard.remove_topic(topic_url, topic_name)
 			#self.redirect(str(self.request.host_url))
 			self.response.write('The page "' + topic_name + '" has been deleted.')
 		except AssertionError as e:

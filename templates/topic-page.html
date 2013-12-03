@@ -6,6 +6,7 @@
 	<link href="/css/lightbox.css" rel="stylesheet" />
 {% endblock %}
 {% block js %}
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
 	<script src="/js/topic-page.js"></script>
 	<script src="/js/lightbox-2.6.min.js"></script>
 {% endblock %}
@@ -17,7 +18,12 @@
 {% endblock %}
 {% block header_content %}
 	<span class="creator_label">
-		Created by {{topic.creator_name}}
+		Created by 
+		{% if user and user.is_creator %}
+			you | <a href="delete_topic?topic_url={{topic.url}}">Delete</a>
+		{% else %}
+			{{topic.creator_name}}
+		{% endif %}
 	</span>
 	{% if user %}
 	<button class="add-image-btn btn">Add an image</button>

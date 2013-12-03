@@ -1,0 +1,23 @@
+{% extends "templates/page-shell.html" %}
+{% block main_heading %}
+	Search Results for '{{query}}'
+{% endblock %}
+{% block header_content %}
+{% endblock %}
+{% block content %}
+	<div class="seach-results">
+		<form id="search-form" class="search-form" method="GET" action="search" accept-charset="UTF-8">
+			<div class="input-group">
+				<input type="search" class="form-control search-query" name="query" placeholder="search topics" value="{{query}}" />
+				<span class="input-group-btn">
+					<button class="btn search-button">Search</button>
+				</span>
+			</div>
+		</form>
+		<ul>
+			{% for topic in search_results %}
+				<li><a href="{{topic.url}}">{{topic.name}}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endblock %}
