@@ -125,6 +125,7 @@ $(document).ready(function () {
 		});
 	});
 
+	// Delete Image
 	var confirm_delete_template = $('.confirm-delete-template').html();
 	$('.confirm-delete-template').remove();
 	bubl_boxes.on('click', '.delete-image', function (event) {

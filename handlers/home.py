@@ -22,13 +22,13 @@ class HomeHandler(webapp2.RequestHandler):
 		index = datastore.SearchIndexShard.build_index()
 		url_dict = dict()
 		for pair in index:
-			logging.info(str(pair))
+			# self.response.write(str(pair) + '<br>')
 			if pair[1] in url_dict:
 				url_dict[pair[1]].append(pair[0])
 			else:
 				url_dict[pair[1]] = [pair[0]]
 		names = [x[1] for x in index]
-
+		
 		matches = difflib.get_close_matches(query, names, 50, 0.5)
 		for name in names:
 			if query.lower() in name.lower() and name not in matches:

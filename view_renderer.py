@@ -1,5 +1,6 @@
 import jinja2
 import logging
+from google.appengine.api import users
 import os
 
 # Initialise jinja2 templating environment
@@ -52,5 +53,11 @@ def render_topic_page(data):
 	return render('topic-page', data)
 
 def render_error(error_message):
-	data = {'error_message': error_message}
-	return render('error', data)
+	page_data = {'error_message': error_message}
+	user = users.get_current_user()
+	if user:
+		page_data['user'] = {
+			'name': user.nickname(),
+			'id': user.user_id()
+		}
+	return render('error', page_data)

@@ -89,13 +89,13 @@ class SearchIndexShard(ndb.Model):
 	@ndb.transactional
 	def add_topic(cls, topic_url, topic_name):
 		shard_num = str(random.randint(0, SEARCH_SHARD_COUNT - 1))
-		logging.info('adding ' + topic_name + ' to shard ' + str(shard_num))
+		# logging.info('adding ' + topic_name + ' to shard ' + str(shard_num))
 		shard = cls.get_by_id(shard_num)
 		if shard is None:
 			logging.info('creating shard')
 			shard = cls(id=shard_num)
 		shard.index.append((topic_url, topic_name))
-		logging.info('shard contents: ' + str(shard.index))
+		# logging.info('shard contents: ' + str(shard.index))
 		shard.put()
 
 	@classmethod
