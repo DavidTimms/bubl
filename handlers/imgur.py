@@ -2,10 +2,9 @@ import logging
 import json
 import urllib
 from google.appengine.api import urlfetch
+from imgur_details import client_id, client_secret
 
 api_url = 'https://api.imgur.com/3/'
-client_id =  '22a551b53de42cc'
-client_secret = '392a1344ed9c8b040f6439e5cb8a0208cf4169b5'
 
 def send_request(endpoint, method=urlfetch.POST, data=None):
 	endpoint = api_url + endpoint + '.json'

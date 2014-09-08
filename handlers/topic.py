@@ -47,6 +47,7 @@ class TopicHandler(webapp2.RequestHandler):
 			self.redirect(str(self.request.host_url + '/' + topic_url))
 		except AssertionError as e:
 			logging.info(str(e.args))
+
 	def delete_topic(self):
 		try:
 			user = check(

@@ -69,7 +69,6 @@ class Image(ndb.Model):
 
 	@classmethod
 	def topic_images(cls, topic_url):
-		# anc_key = Topic.retrieve(topic_url).key
 		anc_key = ndb.Key("Topic", topic_url)
 		return cls.query(ancestor = anc_key).order(-cls.score).fetch(30)
 
